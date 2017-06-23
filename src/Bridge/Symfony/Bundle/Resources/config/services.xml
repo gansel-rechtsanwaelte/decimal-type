@@ -9,7 +9,7 @@
 
   <services>
 
-    <service id="gansel_decimal.serializer.normalizer"
+    <service id="gansel_decimal.serializer.normalizer.decimal"
         class="Gansel\Decimal\Bridge\Symfony\Serializer\Normalizer\DecimalNormalizer"
     >
       <tag name="serializer.normalizer" />
