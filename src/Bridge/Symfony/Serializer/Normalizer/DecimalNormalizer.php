@@ -24,7 +24,7 @@ class DecimalNormalizer implements NormalizerInterface, DenormalizerInterface
      *
      * @see \Symfony\Component\Serializer\Normalizer\NormalizerInterface::normalize()
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): string
     {
         return $object->value();
     }
@@ -46,7 +46,7 @@ class DecimalNormalizer implements NormalizerInterface, DenormalizerInterface
      *
      * @see \Symfony\Component\Serializer\Normalizer\DenormalizerInterface::denormalize()
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Decimal
     {
         try {
             return Decimal::create($data);

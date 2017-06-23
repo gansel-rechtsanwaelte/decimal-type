@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Gansel\Decimal\Decimal;
 
 /**
  * @author Oliver Hoff <hoff@gansel-rechtsanwaelte.de>
@@ -24,8 +25,8 @@ class GanselDecimalExtension extends Extension implements PrependExtensionInterf
     public function prepend(ContainerBuilder $container)
     {
         $config = [];
-        $config['dbal']['types']['gansel_decimal']['class'] = DecimalType::class;
-        $config['dbal']['types']['gansel_decimal']['commented'] = false;
+        $config['dbal']['types'][DecimalType::NAME]['class'] = DecimalType::class;
+        $config['dbal']['types'][DecimalType::NAME]['commented'] = false;
 
         $container->prependExtensionConfig('doctrine', $config);
     }
