@@ -22,11 +22,13 @@ class DecimalNormalizer implements NormalizerInterface, DenormalizerInterface
     /**
      * {@inheritdoc}
      *
+     * @param Decimal $object
+     *
      * @see \Symfony\Component\Serializer\Normalizer\NormalizerInterface::normalize()
      */
     public function normalize($object, $format = null, array $context = []): string
     {
-        return $object->value();
+        return $object->toString();
     }
 
     /**

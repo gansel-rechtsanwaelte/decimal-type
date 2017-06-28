@@ -247,7 +247,7 @@ class Decimal
             ));
         }
 
-        return $this->value;
+        return $int;
     }
 
     /**
