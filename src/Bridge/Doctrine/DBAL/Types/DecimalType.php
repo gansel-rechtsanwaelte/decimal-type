@@ -35,7 +35,7 @@ class DecimalType extends DoctrineDecimalType
      *
      * @see \Doctrine\DBAL\Types\Type::convertToDatabaseValue()
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return null;
@@ -53,7 +53,7 @@ class DecimalType extends DoctrineDecimalType
      *
      * @see \Doctrine\DBAL\Types\DecimalType::convertToPHPValue()
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): Decimal
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Decimal
     {
         if ($value === null) {
             return null;
