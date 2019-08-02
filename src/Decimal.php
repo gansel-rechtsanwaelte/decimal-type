@@ -7,9 +7,6 @@ namespace Gansel\Decimal;
 use Gansel\Decimal\Exception\ConversionFailure;
 use Gansel\Decimal\Exception\InvalidArgument;
 
-/**
- * @author Oliver Hoff <hoff@gansel-rechtsanwaelte.de>
- */
 class Decimal
 {
     /**

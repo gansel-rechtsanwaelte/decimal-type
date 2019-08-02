@@ -10,9 +10,6 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-/**
- * @author Oliver Hoff <hoff@gansel-rechtsanwaelte.de>
- */
 class DecimalNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     public function __construct()

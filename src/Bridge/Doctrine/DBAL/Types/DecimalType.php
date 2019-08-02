@@ -10,9 +10,6 @@ use Doctrine\DBAL\Types\DecimalType as DoctrineDecimalType;
 use Gansel\Decimal\Decimal;
 use Gansel\Decimal\Exception\InvalidArgument;
 
-/**
- * @author Oliver Hoff <hoff@gansel-rechtsanwaelte.de>
- */
 class DecimalType extends DoctrineDecimalType
 {
     /**

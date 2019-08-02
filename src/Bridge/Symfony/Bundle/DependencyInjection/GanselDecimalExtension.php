@@ -12,9 +12,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Gansel\Decimal\Decimal;
 
-/**
- * @author Oliver Hoff <hoff@gansel-rechtsanwaelte.de>
- */
 class GanselDecimalExtension extends Extension implements PrependExtensionInterface
 {
     /**
