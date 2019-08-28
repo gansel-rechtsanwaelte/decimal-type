@@ -9,7 +9,8 @@
         "psr-4": { "Gansel\\Decimal\\Test\\": "test/" }
     },
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "doctrine/dbal": "^2.5",
