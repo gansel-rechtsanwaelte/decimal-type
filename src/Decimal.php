@@ -7,7 +7,7 @@ namespace Gansel\Decimal;
 use Gansel\Decimal\Exception\ConversionFailure;
 use Gansel\Decimal\Exception\InvalidArgument;
 
-class Decimal
+final class Decimal
 {
     /**
      * @var string Do not round
@@ -63,7 +63,7 @@ class Decimal
      */
     public static function create($arg, ?int $scale = null): self
     {
-        if ($arg instanceof self && ($scale === null || $scale === $arg->scale)) {
+        if ($arg instanceof self && (null === $scale || $scale === $arg->scale)) {
             return $arg;
         }
 
@@ -73,8 +73,8 @@ class Decimal
             throw new InvalidArgument('#1 arg is not a valid decimal value', 1);
         }
 
-        if ($scale === null) {
-            $scale = isset($match[1]) ? strlen($match[1]) - 1 : 0;
+        if (null === $scale) {
+            $scale = isset($match[1]) ? \strlen($match[1]) - 1 : 0;
         } elseif ($scale < 0) {
             throw new InvalidArgument('#2 scale must be a non negative integer', 1);
         } else {
@@ -91,7 +91,7 @@ class Decimal
      *
      * @return self
      */
-    protected static function createSafe(string $value, int $scale): self
+    private static function createSafe(string $value, int $scale): self
     {
         return new self($value, $scale);
     }
@@ -116,7 +116,7 @@ class Decimal
      */
     public static function createComparator(?int $scale = null): \Closure
     {
-        if ($scale === null) {
+        if (null === $scale) {
             return function (self $a, self $b): int {
                 return self::compare($a, $b);
             };
@@ -145,7 +145,7 @@ class Decimal
      * @param string $value
      * @param int    $scale
      */
-    protected function __construct(string $value, int $scale)
+    private function __construct(string $value, int $scale)
     {
         $this->value = $value;
         $this->scale = $scale;
@@ -203,7 +203,7 @@ class Decimal
      */
     public function precision(): int
     {
-        return strlen($this->value) - ($this->scale > 0) - ($this->value[0] === '-');
+        return \strlen($this->value) - ($this->scale > 0) - ('-' === $this->value[0]);
     }
 
     /**
@@ -257,7 +257,7 @@ class Decimal
      */
     public function round(int $scale = 0, string $mode = self::ROUND_MODE_HALFUP): self
     {
-        if ($mode !== self::ROUND_MODE_HALFUP) {
+        if (self::ROUND_MODE_HALFUP !== $mode) {
             throw new \BadMethodCallException('Not implemented');
         }
 
@@ -269,7 +269,7 @@ class Decimal
             return self::create($this, $scale);
         }
 
-        $value = call_user_func(
+        $value = \call_user_func(
             $this->isNegative() ? 'bcsub' : 'bcadd',
             $this->value,
             '0.'.str_repeat('0', $scale).'5',
@@ -456,7 +456,7 @@ class Decimal
      */
     public function isInteger(): bool
     {
-        return $this->scale === 0 || substr(rtrim($this->value, '0'), -1) === '.';
+        return 0 === $this->scale || '.' === substr(rtrim($this->value, '0'), -1);
     }
 
     /**
@@ -464,7 +464,7 @@ class Decimal
      */
     public function isZero(): bool
     {
-        return !strlen(rtrim($this->value, '.0'));
+        return !\strlen(rtrim($this->value, '.0'));
     }
 
     /**
@@ -472,7 +472,7 @@ class Decimal
      */
     public function isPositive(): bool
     {
-        return $this->value[0] !== '-' && !$this->isZero();
+        return '-' !== $this->value[0] && !$this->isZero();
     }
 
     /**
@@ -480,7 +480,7 @@ class Decimal
      */
     public function isNegative(): bool
     {
-        return $this->value[0] === '-';
+        return '-' === $this->value[0];
     }
 
     /**
@@ -493,15 +493,15 @@ class Decimal
     {
         $value = $this;
 
-        if ($min !== null) {
+        if (null !== $min) {
             $min = self::create($min);
             self::compare($this, $min) < 0 && $value = $min;
         }
 
-        if ($max !== null) {
+        if (null !== $max) {
             $max = self::create($max);
 
-            if ($min !== null && self::compare($min, $max) > 0) {
+            if (null !== $min && self::compare($min, $max) > 0) {
                 throw new InvalidArgument(sprintf(
                     'Lower boundary "%s" must be lower than or equal to upper boundary "%s"',
                     $min,
@@ -522,9 +522,9 @@ class Decimal
      *
      * @return int
      */
-    protected function resolveScale($scale)
+    private function resolveScale($scale)
     {
-        if ($scale === null) {
+        if (null === $scale) {
             $scale = $this->scale;
         } elseif ($scale < 0) {
             throw new InvalidArgument('#1 scale must be a non negative integer', 1);
@@ -544,7 +544,7 @@ class Decimal
      *
      * @return self
      */
-    protected function executeBinaryOperation($op, $rightOperand, $scale)
+    private function executeBinaryOperation($op, $rightOperand, $scale)
     {
         $result = $op($this->value, self::create($rightOperand)->value, $scale);
 

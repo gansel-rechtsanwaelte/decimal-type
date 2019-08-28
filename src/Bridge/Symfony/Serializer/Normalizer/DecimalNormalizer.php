@@ -17,33 +17,20 @@ class DecimalNormalizer implements NormalizerInterface, DenormalizerInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param Decimal $object
-     *
-     * @see \Symfony\Component\Serializer\Normalizer\NormalizerInterface::normalize()
      */
     public function normalize($object, $format = null, array $context = []): string
     {
         return $object->toString();
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Symfony\Component\Serializer\Normalizer\NormalizerInterface::supportsNormalization()
-     */
     public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof Decimal;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws UnexpectedValueException
-     *
-     * @see \Symfony\Component\Serializer\Normalizer\DenormalizerInterface::denormalize()
      */
     public function denormalize($data, $class, $format = null, array $context = []): Decimal
     {
@@ -54,13 +41,8 @@ class DecimalNormalizer implements NormalizerInterface, DenormalizerInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Symfony\Component\Serializer\Normalizer\DenormalizerInterface::supportsDenormalization()
-     */
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return $type === Decimal::class;
+        return Decimal::class === $type;
     }
 }

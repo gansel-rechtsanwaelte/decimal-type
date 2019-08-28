@@ -10,15 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Gansel\Decimal\Decimal;
 
 class GanselDecimalExtension extends Extension implements PrependExtensionInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface::prepend()
-     */
     public function prepend(ContainerBuilder $container)
     {
         $config = [];
@@ -28,11 +22,6 @@ class GanselDecimalExtension extends Extension implements PrependExtensionInterf
         $container->prependExtensionConfig('doctrine', $config);
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Symfony\Component\DependencyInjection\Extension\ExtensionInterface::load()
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

@@ -17,42 +17,27 @@ final class DecimalType extends DoctrineDecimalType
      */
     const NAME = 'gansel_decimal';
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Doctrine\DBAL\Types\DecimalType::getName()
-     */
     public function getName(): string
     {
         return self::NAME;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Doctrine\DBAL\Types\Type::convertToDatabaseValue()
-     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
         if (!$value instanceof Decimal) {
-            throw new ConversionException(sprintf('Expected an instance of "%s"', Decimal::class));
+            throw new ConversionException(sprintf('Expect an instance of %s. Got: %s', Decimal::class, \get_class($value)));
         }
 
         return $value->toString();
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Doctrine\DBAL\Types\DecimalType::convertToPHPValue()
-     */
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Decimal
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
@@ -63,11 +48,6 @@ final class DecimalType extends DoctrineDecimalType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see \Doctrine\DBAL\Types\Type::requiresSQLCommentHint()
-     */
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
