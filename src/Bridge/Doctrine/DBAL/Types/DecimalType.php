@@ -12,10 +12,7 @@ use Gansel\Decimal\Exception\InvalidArgument;
 
 final class DecimalType extends DoctrineDecimalType
 {
-    /**
-     * @var string
-     */
-    const NAME = 'gansel_decimal';
+    public const NAME = 'gansel_decimal';
 
     public function getName(): string
     {
