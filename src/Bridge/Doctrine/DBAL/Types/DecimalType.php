@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\DecimalType as DoctrineDecimalType;
 use Gansel\Decimal\Decimal;
 use Gansel\Decimal\Exception\InvalidArgument;
 
-class DecimalType extends DoctrineDecimalType
+final class DecimalType extends DoctrineDecimalType
 {
     /**
      * @var string
