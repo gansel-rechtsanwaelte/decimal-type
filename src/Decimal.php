@@ -54,12 +54,25 @@ final class Decimal
     const ROUND_MODE_UP = 'up';
 
     /**
+     * @var string
+     */
+    private $value;
+
+    /**
+     * @var int
+     */
+    private $scale;
+
+    private function __construct(string $value, int $scale)
+    {
+        $this->value = $value;
+        $this->scale = $scale;
+    }
+
+    /**
      * @param mixed $arg
-     * @param int   $scale
      *
      * @throws InvalidArgument
-     *
-     * @return self
      */
     public static function create($arg, ?int $scale = null): self
     {
@@ -85,34 +98,18 @@ final class Decimal
         return self::createSafe(bcmul($arg, '1', $scale), $scale);
     }
 
-    /**
-     * @param string $arg
-     * @param int    $scale
-     *
-     * @return self
-     */
     private static function createSafe(string $value, int $scale): self
     {
         return new self($value, $scale);
     }
 
-    /**
-     * @param self $a
-     * @param self $b
-     *
-     * @return int
-     */
     public static function compare(self $a, self $b): int
     {
         return bccomp($a->value, $b->value, max($a->scale, $b->scale));
     }
 
     /**
-     * @param int|null $scale
-     *
      * @throws InvalidArgument
-     *
-     * @return \Closure
      */
     public static function createComparator(?int $scale = null): \Closure
     {
@@ -131,48 +128,20 @@ final class Decimal
         };
     }
 
-    /**
-     * @var string
-     */
-    private $value;
-
-    /**
-     * @var int
-     */
-    private $scale;
-
-    /**
-     * @param string $value
-     * @param int    $scale
-     */
-    private function __construct(string $value, int $scale)
-    {
-        $this->value = $value;
-        $this->scale = $scale;
-    }
-
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->toString();
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->value;
     }
 
     /**
-     * @param string $roundMode TODO only ROUND_MODE_NONE supported yet
+     * Todo: only ROUND_MODE_NONE supported yet.
      *
      * @throws ConversionFailure
-     *
-     * @return int
      */
     public function toInteger(string $roundMode = self::ROUND_MODE_NONE): int
     {
@@ -198,25 +167,16 @@ final class Decimal
         return $int;
     }
 
-    /**
-     * @return int
-     */
     public function precision(): int
     {
         return \strlen($this->value) - ($this->scale > 0) - ('-' === $this->value[0]);
     }
 
-    /**
-     * @return int
-     */
     public function scale(): int
     {
         return $this->scale;
     }
 
-    /**
-     * @return string
-     */
     public function digits(): string
     {
         return ltrim(str_replace('.', '', $this->value), '0') ?: '0';
@@ -248,12 +208,9 @@ final class Decimal
     }
 
     /**
-     * @param int    $scale
-     * @param string $mode  TODO only ROUND_MODE_HALFUP supported yet
+     * Todo: only ROUND_MODE_HALFUP supported yet.
      *
      * @throws InvalidArgument
-     *
-     * @return self
      */
     public function round(int $scale = 0, string $mode = self::ROUND_MODE_HALFUP): self
     {
@@ -280,8 +237,6 @@ final class Decimal
     }
 
     /**
-     * @param int $scale
-     *
      * @throws \BadMethodCallException
      *
      * @return self
@@ -292,8 +247,6 @@ final class Decimal
     }
 
     /**
-     * @param int $scale
-     *
      * @throws \BadMethodCallException
      *
      * @return self
@@ -380,13 +333,12 @@ final class Decimal
 
     /**
      * @param mixed $rightOperand
-     * @param int   $scale
      *
      * @throws InvalidArgument
      *
      * @return self
      */
-    public function mod($rightOperand, $scale = null)
+    public function mod($rightOperand, int $scale = null)
     {
         $scale = $this->resolveScale($scale);
 
@@ -404,80 +356,50 @@ final class Decimal
     }
 
     /**
-     * @param int $scale
-     *
      * @throws InvalidArgument
-     *
-     * @return self
      */
-    public function sqrt($scale = null)
+    public function sqrt(int $scale = null): self
     {
         $scale = $this->resolveScale($scale);
 
         return self::createSafe(bcsqrt($this->value, $scale), $scale);
     }
 
-    /**
-     * @return self
-     */
     public function abs(): self
     {
         return $this->compareTo('0') < 0 ? $this->neg() : $this;
     }
 
-    /**
-     * @return self
-     */
     public function neg(): self
     {
         return $this->executeBinaryOperation('bcmul', '-1', $this->scale);
     }
 
-    /**
-     * @return self
-     */
     public function inv(): self
     {
         return $this->executeBinaryOperation('bcpow', '-1', $this->scale);
     }
 
-    /**
-     * @param self $rightOperand
-     *
-     * @return int
-     */
     public function compareTo($rightOperand): int
     {
         return self::compare($this, self::create($rightOperand));
     }
 
-    /**
-     * @return bool
-     */
     public function isInteger(): bool
     {
         return 0 === $this->scale || '.' === substr(rtrim($this->value, '0'), -1);
     }
 
-    /**
-     * @return bool
-     */
     public function isZero(): bool
     {
         return !\strlen(rtrim($this->value, '.0'));
     }
 
-    /**
-     * @return bool
-     */
     public function isPositive(): bool
     {
         return '-' !== $this->value[0] && !$this->isZero();
     }
 
-    /**
-     * @return bool
-     */
     public function isNegative(): bool
     {
         return '-' === $this->value[0];
@@ -516,13 +438,9 @@ final class Decimal
     }
 
     /**
-     * @param null|int $scale
-     *
      * @throws InvalidArgument
-     *
-     * @return int
      */
-    private function resolveScale($scale)
+    private function resolveScale(?int $scale): int
     {
         if (null === $scale) {
             $scale = $this->scale;
@@ -536,15 +454,11 @@ final class Decimal
     }
 
     /**
-     * @param string $op
-     * @param mixed  $rightOperand
-     * @param int    $scale
+     * @param mixed $rightOperand
      *
      * @throws InvalidArgument
-     *
-     * @return self
      */
-    private function executeBinaryOperation($op, $rightOperand, $scale)
+    private function executeBinaryOperation(string $op, $rightOperand, int $scale): self
     {
         $result = $op($this->value, self::create($rightOperand)->value, $scale);
 
