@@ -1,5 +1,5 @@
 {
-    "name": "gansel-rechtsanwalte/decimal-type",
+    "name": "gansel-rechtsanwaelte/decimal-type",
     "description": "Decimal numbers and calculation",
     "type": "library",
     "autoload": {
