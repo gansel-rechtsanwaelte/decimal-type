@@ -17,7 +17,6 @@ class GanselDecimalExtension extends Extension implements PrependExtensionInterf
     {
         $config = [];
         $config['dbal']['types'][DecimalType::NAME]['class'] = DecimalType::class;
-        $config['dbal']['types'][DecimalType::NAME]['commented'] = false;
 
         $container->prependExtensionConfig('doctrine', $config);
     }
