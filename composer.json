@@ -2,6 +2,7 @@
     "name": "gansel-rechtsanwaelte/decimal-type",
     "description": "Decimal numbers and calculation",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": { "Gansel\\Decimal\\": "src/" }
     },
