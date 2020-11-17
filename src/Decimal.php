@@ -146,7 +146,10 @@ final class Decimal
     public function toInteger(string $roundMode = self::ROUND_MODE_NONE): int
     {
         if (!$this->isInteger()) {
-            throw new ConversionFailure(sprintf('Can not convert decimal "%s" to an integer without rounding', $this));
+            throw new ConversionFailure(sprintf(
+                'Can not convert decimal "%s" to an integer without rounding',
+                $this
+            ));
         }
 
         $str = explode('.', $this->value, 2)[0];
