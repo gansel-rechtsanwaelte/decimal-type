@@ -24,7 +24,6 @@
         "symfony/serializer": "^3.3"
     },
     "suggest": {
-        "doctrine/dbal": "A database mapping type is provided",
         "symfony/framework-bundle": "An integration bundle is provided",
         "symfony/serializer": "A normalizer is provided"
     },
