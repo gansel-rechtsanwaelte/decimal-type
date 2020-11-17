@@ -412,7 +412,9 @@ final class Decimal
 
         if (null !== $min) {
             $min = self::create($min);
-            self::compare($this, $min) < 0 && $value = $min;
+            if (self::compare($this, $min) < 0) {
+                $value = $min;
+            }
         }
 
         if (null !== $max) {
@@ -426,7 +428,9 @@ final class Decimal
                 ));
             }
 
-            self::compare($this, $max) > 0 && $value = $max;
+            if (self::compare($this, $max) > 0) {
+                $value = $max;
+            }
         }
 
         return $value;
