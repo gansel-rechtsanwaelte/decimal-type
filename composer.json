@@ -4,10 +4,14 @@
     "type": "library",
     "license": "MIT",
     "autoload": {
-        "psr-4": { "Gansel\\Decimal\\": "src/" }
+        "psr-4": {
+            "Gansel\\Decimal\\": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Gansel\\Decimal\\Test\\": "tests/" }
+        "psr-4": {
+            "Gansel\\Decimal\\Test\\": "tests/"
+        }
     },
     "require": {
         "php": "^7.1",
