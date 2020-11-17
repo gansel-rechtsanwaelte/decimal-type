@@ -184,8 +184,6 @@ final class Decimal
 
     /**
      * @throws ConversionFailure
-     *
-     * @return int
      */
     public function value(): int
     {
@@ -238,8 +236,6 @@ final class Decimal
 
     /**
      * @throws \BadMethodCallException
-     *
-     * @return self
      */
     public function ceil(int $scale = 0): self
     {
@@ -248,8 +244,6 @@ final class Decimal
 
     /**
      * @throws \BadMethodCallException
-     *
-     * @return self
      */
     public function floor(int $scale = 0): self
     {
@@ -408,8 +402,6 @@ final class Decimal
     /**
      * @param mixed $min Lower boundary or null, if unbound
      * @param mixed $max Upper boundary or null, if unbound
-     *
-     * @return self
      */
     public function limit($min, $max): self
     {
