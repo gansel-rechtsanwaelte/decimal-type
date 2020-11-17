@@ -19,8 +19,8 @@
     },
     "require-dev": {
         "doctrine/dbal": "^2.5",
-	"phpunit/phpunit" : "^6.0",
-        "symfony/framework-bundle": "^3.3",
+        "phpunit/phpunit" : "^6.0",
+        "symfony/framework-bundle": "^3.4.26||^4.1.12||^4.2.7",
         "symfony/serializer": "^3.3"
     },
     "suggest": {
