@@ -7,6 +7,6 @@ namespace Gansel\Decimal\Exception;
 /**
  * @internal
  */
-class InvalidArgument extends \InvalidArgumentException
+final class InvalidArgument extends \InvalidArgumentException
 {
 }
