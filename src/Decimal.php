@@ -12,46 +12,46 @@ final class Decimal
     /**
      * @var string Do not round
      */
-    const ROUND_MODE_NONE = 'none';
+    public const ROUND_MODE_NONE = 'none';
 
     /**
      * @var string Rounding mode to round towards positive infinity
      */
-    const ROUND_MODE_CEILING = 'ceiling';
+    public const ROUND_MODE_CEILING = 'ceiling';
 
     /**
      * @var string Rounding mode to round towards zero
      */
-    const ROUND_MODE_DOWN = 'down';
+    public const ROUND_MODE_DOWN = 'down';
 
     /**
      * @var string Rounding mode to round towards negative infinity
      */
-    const ROUND_MODE_FLOOR = 'floor';
+    public const ROUND_MODE_FLOOR = 'floor';
 
     /**
      * @var string Rounding mode to round towards "nearest neighbor" unless both
      *             neighbors are equidistant, in which case round down
      */
-    const ROUND_MODE_HALFDOWN = 'halfdown';
+    public const ROUND_MODE_HALFDOWN = 'halfdown';
 
     /**
      * @var string Rounding mode to round towards the "nearest neighbor" unless
      *             both neighbors are equidistant, in which case, round towards
      *             the even neighbor
      */
-    const ROUND_MODE_HALFEVEN = 'halfeven';
+    public const ROUND_MODE_HALFEVEN = 'halfeven';
 
     /**
      * @var string Rounding mode to round towards "nearest neighbor" unless both
      *             neighbors are equidistant, in which case round up
      */
-    const ROUND_MODE_HALFUP = 'halfup';
+    public const ROUND_MODE_HALFUP = 'halfup';
 
     /**
      * @var string Rounding mode to round away from zero
      */
-    const ROUND_MODE_UP = 'up';
+    public const ROUND_MODE_UP = 'up';
 
     /**
      * @var string
