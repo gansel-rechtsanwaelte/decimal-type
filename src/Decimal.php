@@ -69,9 +69,12 @@ final class Decimal
         $this->scale = $scale;
     }
 
+    public function __toString(): string
+    {
+        return $this->toString();
+    }
+
     /**
-     * @param mixed $arg
-     *
      * @throws InvalidArgument
      */
     public static function create($arg, ?int $scale = null): self
@@ -82,6 +85,7 @@ final class Decimal
 
         $arg = trim((string) $arg);
         $match = null;
+
         if (!preg_match('@^\-?[0-9]+(\.[0-9]+)?$@', $arg, $match)) {
             throw new InvalidArgument('#1 arg is not a valid decimal value', 1);
         }
@@ -96,11 +100,6 @@ final class Decimal
 
         // bcmul with 1 normalizes the value to the given scale
         return self::createSafe(bcmul($arg, '1', $scale), $scale);
-    }
-
-    private static function createSafe(string $value, int $scale): self
-    {
-        return new self($value, $scale);
     }
 
     public static function compare(self $a, self $b): int
@@ -126,11 +125,6 @@ final class Decimal
         return function (self $a, self $b) use ($scale): int {
             return bccomp($a->value, $b->value, $scale);
         };
-    }
-
-    public function __toString(): string
-    {
-        return $this->toString();
     }
 
     public function toString(): string
@@ -254,8 +248,7 @@ final class Decimal
     }
 
     /**
-     * @param mixed $rightOperand
-     * @param int   $scale
+     * @param int $scale
      *
      * @throws InvalidArgument
      *
@@ -269,8 +262,7 @@ final class Decimal
     }
 
     /**
-     * @param mixed $rightOperand
-     * @param int   $scale
+     * @param int $scale
      *
      * @throws InvalidArgument
      *
@@ -284,8 +276,7 @@ final class Decimal
     }
 
     /**
-     * @param mixed $rightOperand
-     * @param int   $scale
+     * @param int $scale
      *
      * @throws InvalidArgument
      *
@@ -299,8 +290,7 @@ final class Decimal
     }
 
     /**
-     * @param mixed $rightOperand
-     * @param int   $scale
+     * @param int $scale
      *
      * @throws InvalidArgument
      *
@@ -314,8 +304,7 @@ final class Decimal
     }
 
     /**
-     * @param mixed $rightOperand
-     * @param int   $scale
+     * @param int $scale
      *
      * @throws InvalidArgument
      *
@@ -329,8 +318,6 @@ final class Decimal
     }
 
     /**
-     * @param mixed $rightOperand
-     *
      * @throws InvalidArgument
      *
      * @return self
@@ -412,6 +399,7 @@ final class Decimal
 
         if (null !== $min) {
             $min = self::create($min);
+
             if (self::compare($this, $min) < 0) {
                 $value = $min;
             }
@@ -436,6 +424,11 @@ final class Decimal
         return $value;
     }
 
+    private static function createSafe(string $value, int $scale): self
+    {
+        return new self($value, $scale);
+    }
+
     /**
      * @throws InvalidArgument
      */
@@ -453,8 +446,6 @@ final class Decimal
     }
 
     /**
-     * @param mixed $rightOperand
-     *
      * @throws InvalidArgument
      */
     private function executeBinaryOperation(string $op, $rightOperand, int $scale): self
